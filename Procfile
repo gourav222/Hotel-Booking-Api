@@ -1,1 +1,1 @@
-web: ./backend/app npm run dev
+web: ./backend/app.js npm run dev
