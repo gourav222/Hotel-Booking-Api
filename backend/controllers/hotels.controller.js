@@ -2,6 +2,11 @@ const hotelModel = require("../models/hotelsSchema.js");
 const bookingModel = require("../models/bookingSchema.js");
 const roomModel = require('../models/roomSchema');
 
+const response = {
+    status : "Added successfully",
+    statuscode : 201
+}
+
 const hotels = (req,res) => {
     body = req.body
     
@@ -14,7 +19,7 @@ const hotels = (req,res) => {
     
     details.save((err) => {
         if(!err){
-            res.send("Hotel successfully added");
+            res.send("Added successfully");
         }
         else{
             res.send(err);
@@ -33,7 +38,7 @@ const hotelList = (req,res) => {
 const deleteHotel = (req,res) => {
     hotelModel.findOneAndDelete({_id : req.params.id})
     .then(data => {
-        res.send("Hotel successfully deleted");
+        res.send(response);
     }).catch(err => {
         res.send("Hotel not deleted from the database");
     })
@@ -46,12 +51,11 @@ const hotelBooking = (req,res) => {
         hotel : req.body.hotel,
         checkin : req.body.checkin,
         checkout : req.body.checkout,
-        amount : req.body.amount,
         guests : req.body.guests
     })
     details.save((err) => {
         if(!err){
-            res.send("booking successfully added");
+            res.send(response);
         }
         else{
             res.send(err);
@@ -66,6 +70,7 @@ const bookingList = (req,res) => {
         res.send({error:err});
     })
 }
+
 
 const deleteBooking = (req,res) => {
     bookingModel.findByIdAndRemove({_id: req.params.id})

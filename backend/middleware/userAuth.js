@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken")
-require('dotenv').config();
 const auth = (req,res,next) => {
     const token =
     req.body.token || req.query.token || req.headers["x-access-token"];
@@ -8,7 +7,7 @@ const auth = (req,res,next) => {
         return res.status(403).send("A token is required for authentication");
     }
     try {
-        const decoded = jwt.verify(token,"dUlegbCLuVWa8MYTCaAvwMpAdNEH9O77");
+        const decoded = jwt.verify(token,"J3SdtW07P05RCSbRkpaB98VwmxG1XI19");
         req.user = decoded;
     } catch (err) {
         return res.status(401).send(err);

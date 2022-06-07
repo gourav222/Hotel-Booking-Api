@@ -3,11 +3,11 @@ const adminRegisterModel = require('../models/adminRegistrationSchema.js')
 const adminRegistrationModel = require('../models/adminRegistrationSchema.js');
 const jwt = require('jsonwebtoken')
 const path = require('path')
-require('dotenv').config()
+
 
 const response = {
     status : "Pass",
-    statuscode : 202
+    statuscode : 201
 }
 
 const adminLogin = (req,res) => {
@@ -23,7 +23,7 @@ const adminLogin = (req,res) => {
         else{
             if(data[0].password === req.body.password){ 
                const tmp = jwt.sign(adminEmail,"dUlegbCLuVWa8MYTCaAvwMpAdNEH9O77",{algorithm : 'HS256'})
-               res.send({accessToken : tmp})
+               res.send({accessToken : tmp,response})
             }
             else{
                 response.status = "Fail"

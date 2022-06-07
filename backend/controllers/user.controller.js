@@ -1,13 +1,14 @@
 const register = require("../models/userRegisterSchema");
 const login = require("../models/userLoginSchema");
-
+const jwt = require('jsonwebtoken')
 const response = {
     status : "Pass",
-    statuscode : 202
+    statuscode : 201
 }
 
 const userLogin = (req,res) => {
-    register.find({email:req.body.email})
+    const userEmail = {email:req.body.email} 
+    register.find(userEmail)
     .exec()
     .then(user => {
         const response = {
@@ -21,7 +22,8 @@ const userLogin = (req,res) => {
         }
         else{
             if(user[0].password === req.body.password){
-                res.send(response);
+                const tmp = jwt.sign(userEmail,"J3SdtW07P05RCSbRkpaB98VwmxG1XI19",{algorithm : 'HS256'})
+                res.send({accessToken : tmp,response})
             }
             else{
                 response.status = "Fail";

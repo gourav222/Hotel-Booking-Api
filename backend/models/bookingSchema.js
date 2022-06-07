@@ -17,10 +17,6 @@ const booking_details = new mongoose.Schema({
         type : Date,
         required : [true,'Checkout date is required']
     },
-    amount : {
-        type : Number,
-        required : [true,'Amount to pay is required']
-    },
     guests : {
         type : Number,
         required : [true,'Number of guests is required']
