@@ -1,4 +1,3 @@
-const adminLoginModel = require('../models/adminLoginSchema');
 const adminRegisterModel = require('../models/adminRegistrationSchema.js')
 const adminRegistrationModel = require('../models/adminRegistrationSchema.js');
 const jwt = require('jsonwebtoken')
