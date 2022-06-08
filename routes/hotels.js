@@ -119,4 +119,7 @@ router.post('/bookings',hotelOp.hotelBooking)
 router.delete('/booking/:_id',hotelOp.deleteBooking)
 
 router.post('/rooms',hotelOp.rooms)
+router.get('/',(req,res) => {
+    res.send('It help you to get the best hotel near by you')
+})
 module.exports = router;
