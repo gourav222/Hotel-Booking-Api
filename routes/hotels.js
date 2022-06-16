@@ -9,6 +9,12 @@ const hotelOp = require('../controllers/hotels.controller')
  *      name: Hotel
  *      description: API's to manage hotels.
  */
+/**  
+ * @swagger
+ *   tags:
+ *      name: Booking
+ *      description: API's to manage booking.
+ */
 
 /**
  * @swagger
@@ -26,9 +32,19 @@ const hotelOp = require('../controllers/hotels.controller')
  *                  stars:
  *                      type: integer
  *                  room:
- *                      type: schema
- *                  Access-token:
- *                      type: string
+ *                      type: object
+ *                      properties:
+ *                          roomNumber:
+ *                              type: integer
+ *                          type:
+ *                              type: string
+ *                          price:
+ *                              type: integer
+ *                          guests:
+ *                              type: integer    
+ *                  token:
+ *                        type: string
+ *                  
  */
 
 
@@ -36,6 +52,8 @@ const hotelOp = require('../controllers/hotels.controller')
  * @swagger
  * /hotels:
  *  post:
+ *      security:          
+ *        - bearerAuth: []
  *      tags: [Hotel]
  *      summary: To add hotels to the database
  *      description: This is used to add the hotel to the database
@@ -71,6 +89,36 @@ router.post('/hotels',adminAuth,hotelOp.hotels)
  *                          $ref: '#components/schemas/hotels'
  */
 router.get('/hotels',hotelOp.hotelList);
+/**
+ * @swagger
+ * /deleteHotel:
+ *  delete:
+ *      security:          
+ *        - bearerAuth: []
+ *      summary: deleting hotel API
+ *      tags: [Hotel]
+ *      description: For deleting Hotel
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                     type: object
+ *                     required:
+ *                       - Name
+ *                       - location   
+ *                     properties:
+ *                         Name:
+ *                            type: string
+ *                            description : Hotel Name 
+ *                         location:
+ *                            type: string
+ *      responses:
+ *          '201':
+ *              description: Hotel deleted Successfully,
+ *          '400':
+ *              description: hotel does not exist
+ */
 router.delete('/hotels/:Name',adminAuth,hotelOp.deleteHotel)
 
 /**
@@ -97,7 +145,7 @@ router.delete('/hotels/:Name',adminAuth,hotelOp.deleteHotel)
  * @swagger
  * /bookings:
  *  get:
- *    tags: [Hotel]
+ *    tags: [Booking]
  *    summary : To get list of all bookings.
  *    description: This api is used to fetch the data from mongodb.
  *    responses:
@@ -115,7 +163,7 @@ router.get('/bookings',userAuth,hotelOp.bookingList)
  * @swagger
  * /bookings:
  *  post:
- *      tags: [Hotel]
+ *      tags: [Booking]
  *      summary: To book the hotel
  *      description: This is used to add the booking to the database
  *      requestBody:
@@ -133,24 +181,32 @@ router.post('/bookings',hotelOp.hotelBooking)
 
 
 router.post('/rooms',hotelOp.rooms)
-/**
+/** 
  * @swagger
  * /hotelByName:
  *  get:
  *      tags: [Hotel]
+ *      parameters: 
+ *      - in: query
+ *        name: Name
+ *        type: string
+ *        required: true
  *      summary: To get the hotel by name
  *      description: This is used to search the hotel by an specific name
- *      requestBody:
- *          required: true
+ *      responses:
+ *        '200':
+ *          description: A successful response
  *          content:
  *              application/json:
- *                  schema:
- *                      $ref: '#components/schemas/booking'
- *      responses:
- *          '201':
+ *                    schema:
+ *                        type: array
+ *                        items:
+ *                            $ref: '#components/schemas/hotelSchema'
+ *      '404':
+ *          description: No Hotels Found
  *               
  */
-router.get('/hotelByName/:Name',hotelOp.hotelByName)
+router.get('/hotelByName',hotelOp.hotelByName)
 router.get('/',(req,res) => {
     res.send('It help you to get the best hotel near by you')
 })

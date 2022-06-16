@@ -7,7 +7,12 @@ const userOp = require('../controllers/user.controller')
  *      name: User
  *      description: API's to manage User.
  */
-
+/**  
+ * @swagger
+ *   tags:
+ *      name: Booking
+ *      description: API's to manage booking.
+ */
 /**
  * @swagger
  *  components:
@@ -78,6 +83,42 @@ router.post('/userRegister',userOp.userRegistration)
  *                          $ref: '#components/schemas/admin'
  */
 router.get('/users',userOp.userList);
+/**
+ * @swagger
+ * /cancelBooking:
+ *  delete:
+ *      security:          
+ *        - bearerAuth: []
+ *      summary: cancel Booking API
+ *      tags: [Booking]
+ *      description: For canceling Booking
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                     type: object
+ *                     required:
+ *                       - email
+ *                       - hotelName
+ *                       - location   
+ *                       - roomNo
+ *                     properties:
+ *                         email:
+ *                            type: string
+ *                         hotelName:
+ *                            type: string
+ *                            description : Hotel Name 
+ *                         location:
+ *                            type: string
+ *                         roomNo:
+ *                            type: integer
+ *      responses:
+ *          '201':
+ *              description: booking canceled Successfully,
+ *          '400':
+ *              description:  booking does not exist
+ */
 router.delete('/cancelBooking',userOp.cancelBooking)
 /**
  * @swagger

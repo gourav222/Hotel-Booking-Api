@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const adminOp = require('../controllers/admin.controller');
+const adminAuth = require('../middleware/adminAuth')
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 /**  
@@ -88,7 +89,7 @@ router.post('/adminRegister',adminOp.adminRegistration )
  * @swagger
  * /admin/:id:
  *  patch:
- *      summary: Update uadmin details
+ *      summary: Update admin details
  *      tags: [Admin]
  *      description: For Updating admin's details
  *      requestBody:
@@ -96,12 +97,24 @@ router.post('/adminRegister',adminOp.adminRegistration )
  *          content:
  *              application/json:
  *                  schema:
- *                      $ref: '#components/schemas/admin'
+ *                      type : object
+ *                      properties:
+ *                          Name: 
+ *                              type: string
+ *                          email:
+ *                              type: string
+ *                          contact:
+ *                              type: integer
+ *                          password:
+ *                              type: string
+ *                          Access-token:
+ *                              type: string    
+ *                      
  *      responses:
  *          '201':
  *              description: admins details updated Successfully,
  *          '500':
  *              description: admins does not exist
  */
-router.patch('/admin/:id',adminOp.updateAdminDetails)
+router.patch('/admin/:id',adminAuth,adminOp.updateAdminDetails)
 module.exports = router;

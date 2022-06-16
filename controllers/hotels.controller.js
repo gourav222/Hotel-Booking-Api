@@ -37,6 +37,7 @@ const hotelList = (req,res) => {
 
 const deleteHotel = (req,res) => {
     const delHotel = {'hotel' : req.params.Name}
+    console.log(delHotel)
      hotelModel.findOne(delHotel)
     .then(function(doc){
         if(!doc)
@@ -95,7 +96,7 @@ const rooms = (req,res) => {
 }
 
 const hotelByName = (req,res) => {
-    const hotelName = {'hotel' : req.params.Name}
+    const hotelName = {'hotel' : req.query.Name}
     hotelModel.findOne(hotelName).then(function(doc){
         if(!doc)
             res.send({message : "Hotel not exists" , statuscode : 500})
