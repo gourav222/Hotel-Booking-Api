@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors")
 const swaggerJsDoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 const app = express();
@@ -10,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json())
-
+app.use(cors())
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -35,7 +36,7 @@ const options = {
   },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: "http://hotel-booking-system-api.herokuapp.com/",
       },
     ]
   },
