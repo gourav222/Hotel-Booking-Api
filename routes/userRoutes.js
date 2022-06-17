@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userOp = require('../controllers/user.controller')
+const userAuth = require('../middleware/userAuth')
 /**  
  * @swagger
  *   tags:
@@ -122,10 +123,17 @@ router.get('/users',userOp.userList);
 router.delete('/cancelBooking',userOp.cancelBooking)
 /**
  * @swagger
- * /user/:id:
+ * /user:
  *  patch:
+ *      security:          
+ *        - bearerAuth: []
  *      summary: Update users details
  *      tags: [User]
+ *      parameters: 
+ *      - in: query
+ *        id: id
+ *        type: string
+ *        required: true
  *      description: For Updating user's details
  *      requestBody:
  *          required: true
@@ -140,5 +148,5 @@ router.delete('/cancelBooking',userOp.cancelBooking)
  *              description: users does not exist
  */
 
-router.patch('/user/:id',userOp.updateUsersDetails)
+router.patch('/user',userAuth,userOp.updateUsersDetails)
 module.exports = router
