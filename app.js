@@ -40,7 +40,7 @@ const options = {
       },
     ]
   },
-  apis: ["require("path").dirname(/Routes/*.js)"],
+  apis: [require('path').dirname('/Routes/*.js')],
 };
 
 const specs = swaggerJsDoc(options);
