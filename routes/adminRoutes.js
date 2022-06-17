@@ -87,10 +87,17 @@ router.post('/adminLogin',adminOp.adminLogin)
 router.post('/adminRegister',adminOp.adminRegistration )
 /**
  * @swagger
- * /admin/:id:
+ * /admin:
  *  patch:
+ *      security:          
+ *        - bearerAuth: []
  *      summary: Update admin details
  *      tags: [Admin]
+ *      parameters: 
+ *      - in: query
+ *        id: id
+ *        type: string
+ *        required: true
  *      description: For Updating admin's details
  *      requestBody:
  *          required: true
@@ -116,5 +123,5 @@ router.post('/adminRegister',adminOp.adminRegistration )
  *          '500':
  *              description: admins does not exist
  */
-router.patch('/admin/:id',adminAuth,adminOp.updateAdminDetails)
+router.patch('/admin',adminAuth,adminOp.updateAdminDetails)
 module.exports = router;
