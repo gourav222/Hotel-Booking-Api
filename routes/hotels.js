@@ -158,11 +158,13 @@ router.delete('/hotels/:Name',adminAuth,hotelOp.deleteHotel)
  *                      items:
  *                          $ref: '#components/schemas/booking'
  */
-router.get('/bookings',userAuth,hotelOp.bookingList)
+router.get('/bookings',hotelOp.bookingList)
 /**
  * @swagger
  * /bookings:
  *  post:
+ *      security:          
+ *        - bearerAuth: []
  *      tags: [Booking]
  *      summary: To book the hotel
  *      description: This is used to add the booking to the database
@@ -177,7 +179,7 @@ router.get('/bookings',userAuth,hotelOp.bookingList)
  *              description: Booking successfully added
  *               
  */
-router.post('/bookings',hotelOp.hotelBooking)
+router.post('/bookings',userAuth,hotelOp.hotelBooking)
 
 
 router.post('/rooms',hotelOp.rooms)
