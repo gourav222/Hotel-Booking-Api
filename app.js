@@ -36,7 +36,7 @@ const options = {
   },
     servers: [
       {
-        url: "http://hotel-booking-system-api.herokuapp.com/",
+        url: "https://hotel-booking-system-api.herokuapp.com/",
       },
     ]
   },
